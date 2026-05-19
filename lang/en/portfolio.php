@@ -83,6 +83,8 @@ return [
     'proj3_tech' => 'LARAVEL + TAILWIND',
     'proj3_desc' => 'This very portfolio developed with Laravel 13 and TailwindCSS.',
     'proj3_link' => '[ VIEW REPO ]',
+    'proj3_url' => 'https://github.com/95alexisgatica/portfolio',
+    'proj3_img' => 'img/projects/portfolio.png',
     'proj4_name' => 'COMING SOON',
     'proj4_tech' => 'UNDER CONSTRUCTION',
     'proj4_desc' => 'New projects on the way. Always building.',

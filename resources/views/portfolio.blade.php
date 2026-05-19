@@ -308,15 +308,17 @@
                                     <div class="panel-header-secondary">> PROJECTS.SYS</div>
                                     <hr>
                                     <div class="p-2 grid grid-cols-4 gap-2">
-                                        @foreach ([[__('portfolio.proj1_name'), __('portfolio.proj1_tech'), __('portfolio.proj1_desc'), __('portfolio.proj1_link'), '#'], [__('portfolio.proj3_name'), __('portfolio.proj3_tech'), __('portfolio.proj3_desc'), __('portfolio.proj3_link'), '#'], [__('portfolio.proj4_name'), __('portfolio.proj4_tech'), __('portfolio.proj4_desc'), __('portfolio.proj4_link'), '#']] as [$name, $tech, $desc, $link, $url])
+                                        @foreach ([[__('portfolio.proj1_name'), __('portfolio.proj1_tech'), __('portfolio.proj1_desc'), __('portfolio.proj1_link'), '#', null], [__('portfolio.proj2_name'), __('portfolio.proj2_tech'), __('portfolio.proj2_desc'), __('portfolio.proj2_link'), '#', null], [__('portfolio.proj3_name'), __('portfolio.proj3_tech'), __('portfolio.proj3_desc'), __('portfolio.proj3_link'), __('portfolio.proj3_url'), __('portfolio.proj3_img')], [__('portfolio.proj4_name'), __('portfolio.proj4_tech'), __('portfolio.proj4_desc'), __('portfolio.proj4_link'), '#', null]] as [$name, $tech, $desc, $link, $url, $img])
                                             <div class="project-card">
                                                 <div class="font-pixel text-sm-base text-accent">> {{ $name }}
                                                 </div>
                                                 <div class="text-sm-base text-muted mt-0.5">{{ $tech }}</div>
-                                                <div class="project-thumb"></div>
+                                                <div class="project-thumb"
+                                                    @if ($img) style="background-image: url('{{ $img }}'); background-size: cover; background-position: center;" @endif>
+                                                </div>
                                                 <div class="text-sm-base mb-1.5">{{ $desc }}</div>
-                                                <a href="{{ $url }}"
-                                                    class="text-sm-base text-accent-red">{{ $link }}</a>
+                                                <a href="{{ $url }}" class="text-sm-base text-accent-red"
+                                                    target="_blank">{{ $link }}</a>
                                             </div>
                                         @endforeach
                                     </div>
