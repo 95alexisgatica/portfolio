@@ -1,0 +1,404 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Press+Start+2P&family=VT323&display=swap');
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+:root {
+    /* Backgrounds */
+    --color-bg: #c8b99a;
+    --color-bg-secondary: #b8a88a;
+    --color-bg-panel: #d4c9a8;
+
+    /* Borders */
+    --color-border: #4a6fa5;
+    --color-border-dark: #000000;
+    --color-hr: #00000029;
+
+    /* Text */
+    --color-text: #1a1a1a;
+    --color-text-muted: #4a4a4a;
+
+    /* Accent colors */
+    --color-accent: #003187;
+    --color-accent-green: #2d7a2d;
+    --color-accent-yellow: #8a7a00;
+    --color-accent-red: #ae0f0f;
+
+    /* Header */
+    --color-header-bg: #003187;
+    --color-header-text: #ffffff;
+
+    /* Skill bars */
+    --color-bar-fill: #003187;
+    --color-bar-bg: #a09070;
+
+    /* Terminal */
+    --color-black-green: #15210d;
+
+    --font-mono: 'Share Tech Mono', monospace;
+    --font-pixel: 'VT323', monospace;
+
+    --font-size-xs: 0.6rem;
+    --font-size-sm: 0.7rem;
+    --font-size-base: 0.8rem;
+    --font-size-lg: 1rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 2rem;
+}
+
+
+* {
+    box-sizing: border-box;
+    /* margin: 0; */
+    /* padding: 0; */
+}
+
+body {
+    background-color: #8a7a60;
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-base);
+    animation: fadeIn 0.15s ease-in;
+}
+
+hr {
+    margin: 0 8px;
+    color: var(--color-hr);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.blink {
+    animation: blink 1s infinite;
+}
+
+.portfolio-container {
+    width: 1080px;
+    border: 2px solid var(--color-border-dark);
+    background: var(--color-bg-panel);
+}
+
+/* UTILITY — BACKGROUNDS */
+
+.bg-header {
+    background: var(--color-header-bg);
+}
+
+.bg-secondary {
+    background: var(--color-bg-secondary);
+}
+
+.bg-main {
+    background: var(--color-bg);
+}
+
+.bg-terminal {
+    background: var(--color-black-green);
+}
+
+/* UTILITY — TEXT COLORS */
+
+.text-accent {
+    color: var(--color-accent);
+}
+
+.text-accent-green {
+    color: var(--color-accent-green);
+}
+
+.text-accent-red {
+    color: var(--color-accent-red);
+}
+
+.text-muted {
+    color: var(--color-text-muted);
+}
+
+.text-terminal {
+    color: #529628;
+}
+
+/* UTILITY — FONTS */
+
+.font-pixel {
+    font-family: var(--font-pixel);
+}
+
+.font-mono {
+    font-family: var(--font-mono);
+}
+
+
+/* UTILITY — FONT SIZES */
+
+.text-xs-base {
+    font-size: var(--font-size-sm);
+}
+
+.text-sm-base {
+    font-size: var(--font-size-base);
+}
+
+.text-lg-base {
+    font-size: var(--font-size-lg);
+}
+
+.text-xl-base {
+    font-size: var(--font-size-xl);
+}
+
+.text-2xl-base {
+    font-size: var(--font-size-2xl);
+}
+
+.border-hr {
+    border-color: var(--color-hr);
+}
+
+/* COMPONENTS — PANEL */
+
+.panel {
+    border: 1.7px solid var(--color-border-dark);
+    background: var(--color-bg-panel);
+}
+
+.panel-about {
+    height: 262px;
+}
+
+.panel-header {
+    background: var(--color-header-bg);
+    color: var(--color-header-text);
+    padding: 2px 6px;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-base);
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel-header-secondary {
+    color: var(--color-accent);
+    padding: 2px 6px;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-base);
+    font-weight: bolder;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* COMPONENTS — PROFILE PIC */
+
+.profile-pic {
+    background-image: url('http://localhost:8000/img/perfil2.png');
+    border: 1px solid black;
+    padding: 4px;
+    height: 333px;
+    width: 100%;
+    margin: 0 auto 8px;
+    background-size: cover;
+    background-position: center;
+}
+
+/* COMPONENTS — TABS */
+
+.tab-btn {
+    padding: 4px 12px;
+    font-family: var(--font-pixel);
+    font-size: var(--font-size-xs);
+    border: none;
+    border-right: 1px solid var(--color-border-dark);
+    background: var(--color-bg-secondary);
+    color: var(--color-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tab-btn:hover,
+.tab-btn.active {
+    background-color: var(--color-header-bg);
+    color: white;
+    transition: background-color 0.2s ease;
+}
+
+/* COMPONENTS — WIN BUTTONS */
+
+.win-btn {
+    width: 16px;
+    height: 14px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000;
+    cursor: pointer;
+    background: var(--color-bg-secondary);
+    color: var(--color-text);
+}
+
+.win-btn-close {
+    background: #c0392b;
+    color: white;
+}
+
+/* COMPONENTS — SKILL BARS */
+
+.skill-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.skill-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--font-size-xs);
+    margin-bottom: 4px;
+}
+
+.skill-bar-track {
+    height: 8px;
+    background: var(--color-bar-bg);
+    margin-top: 2px;
+    margin-bottom: 6px;
+    border: 1px solid var(--color-border-dark);
+}
+
+.skill-bar-fill {
+    height: 100%;
+    background: var(--color-bar-fill);
+    width: 0%;
+    transition: width 0.8s steps(20, end);
+}
+
+.skill-bar-fill.animated {
+    width: var(--target-width);
+}
+
+/* COMPONENTS — SKILL DROPDOWN (ACCORDION) */
+
+.skill-dropdown {
+    border: 1px solid var(--color-border-dark);
+    margin-bottom: 4px;
+}
+
+.skill-dropdown-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 6px;
+    background: var(--color-bg-secondary);
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+}
+
+.skill-dropdown-header:hover {
+    background-color: var(--color-header-bg);
+    color: white;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.skill-dropdown-body {
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    padding: 6px 8px;
+}
+
+.skill-dropdown-body.closed {
+    max-height: 0;
+    padding: 0 8px;
+}
+
+.skill-dropdown-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.skill-dropdown-header.open .skill-dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.btn-accent {
+    background: var(--color-accent);
+    color: white;
+    padding: 4px 8px;
+    font-size: var(--font-size-base);
+    text-decoration: none;
+    display: block;
+}
+
+.btn-accent-red {
+    background: var(--color-accent-red);
+    color: white;
+    padding: 4px 8px;
+    font-size: var(--font-size-base);
+    text-decoration: none;
+    display: block;
+}
+
+/* COMPONENTS — PROJECT CARD */
+
+.project-card {
+    border: 1px solid var(--color-border-dark);
+    padding: 8px;
+    background: var(--color-bg-secondary);
+}
+
+.project-thumb {
+    width: 100%;
+    height: 60px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-dark);
+    margin: 6px 0;
+}
+
+#lang-menu {
+    display: none;
+}
+
+#lang-menu a:hover {
+    background-color: #8a7a60;
+    transition: background-color 0.2s ease;
+}
+
+.modal-window {
+    animation: none;
+}
