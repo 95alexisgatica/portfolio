@@ -75,6 +75,8 @@ return [
     'proj1_tech' => 'LARAVEL + TAILWIND',
     'proj1_desc' => 'Task management with auth, categories, and images.',
     'proj1_link' => '[ VIEW REPO ]',
+    'proj1_url' => 'https://github.com/95alexisgatica/task-manager',
+    'proj1_img' => 'img/projects/task_manager.png',
     'proj2_name' => 'REST API',
     'proj2_tech' => 'LARAVEL',
     'proj2_desc' => 'Product management API with categories and users.',
