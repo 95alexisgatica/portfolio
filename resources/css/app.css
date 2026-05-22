@@ -221,7 +221,7 @@ hr {
 /* COMPONENTS — PROFILE PIC */
 
 .profile-pic {
-    background-image: url('http://localhost:8000/img/perfil2.png');
+    background-image: url('/img/perfil2.png');
     border: 1px solid black;
     padding: 4px;
     height: 333px;

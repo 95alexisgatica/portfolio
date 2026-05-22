@@ -216,7 +216,7 @@
                                                             <div class="skill-bar">
                                                                 <div class="flex items-center gap-1.5 max-w-[50%]">
                                                                     <div class="skill-icon w-8">
-                                                                        <img src="http://localhost:8000/img/icons/{{ $icon }}.png"
+                                                                        <img src="{{ asset('img/icons/' . $icon . '.png') }}"
                                                                             alt="" class="max-h-8">
                                                                     </div>
                                                                     <span>{{ $skill }}</span>
@@ -247,7 +247,7 @@
                                                             <div class="skill-bar">
                                                                 <div class="flex items-center gap-1.5 max-w-[50%]">
                                                                     <div class="skill-icon w-8">
-                                                                        <img src="http://localhost:8000/img/icons/{{ $icon }}.png"
+                                                                        <img src="{{ asset('img/icons/' . $icon . '.png') }}"
                                                                             alt="" class="max-h-8">
                                                                     </div>
                                                                     <span>{{ $skill }}</span>
@@ -278,7 +278,7 @@
                                                             <div class="skill-bar">
                                                                 <div class="flex items-center gap-1.5 max-w-[50%]">
                                                                     <div class="skill-icon w-8">
-                                                                        <img src="http://localhost:8000/img/icons/{{ $icon }}.png"
+                                                                        <img src="{{ asset('img/icons/' . $icon . '.png') }}"
                                                                             alt="" class="max-h-8">
                                                                     </div>
                                                                     <span>{{ $skill }}</span>
@@ -308,7 +308,7 @@
                                     <div class="panel-header-secondary">> PROJECTS.SYS</div>
                                     <hr>
                                     <div class="p-2 grid grid-cols-4 gap-2">
-                                        @foreach ([[__('portfolio.proj1_name'), __('portfolio.proj1_tech'), __('portfolio.proj1_desc'), __('portfolio.proj1_link'), '#', null], [__('portfolio.proj2_name'), __('portfolio.proj2_tech'), __('portfolio.proj2_desc'), __('portfolio.proj2_link'), '#', null], [__('portfolio.proj3_name'), __('portfolio.proj3_tech'), __('portfolio.proj3_desc'), __('portfolio.proj3_link'), __('portfolio.proj3_url'), __('portfolio.proj3_img')], [__('portfolio.proj4_name'), __('portfolio.proj4_tech'), __('portfolio.proj4_desc'), __('portfolio.proj4_link'), '#', null]] as [$name, $tech, $desc, $link, $url, $img])
+                                        @foreach ([[__('portfolio.proj1_name'), __('portfolio.proj1_tech'), __('portfolio.proj1_desc'), __('portfolio.proj1_link'), __('portfolio.proj1_url'), __('portfolio.proj1_img')], [__('portfolio.proj3_name'), __('portfolio.proj3_tech'), __('portfolio.proj3_desc'), __('portfolio.proj3_link'), __('portfolio.proj3_url'), __('portfolio.proj3_img')], [__('portfolio.proj4_name'), __('portfolio.proj4_tech'), __('portfolio.proj4_desc'), __('portfolio.proj4_link'), '#', null]] as [$name, $tech, $desc, $link, $url, $img])
                                             <div class="project-card">
                                                 <div class="font-pixel text-sm-base text-accent">> {{ $name }}
                                                 </div>
