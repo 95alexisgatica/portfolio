@@ -308,7 +308,7 @@
                                     <div class="panel-header-secondary">> PROJECTS.SYS</div>
                                     <hr>
                                     <div class="p-2 grid grid-cols-4 gap-2">
-                                        @foreach ([[__('portfolio.proj1_name'), __('portfolio.proj1_tech'), __('portfolio.proj1_desc'), __('portfolio.proj1_link'), __('portfolio.proj1_url'), __('portfolio.proj1_img')], [__('portfolio.proj3_name'), __('portfolio.proj3_tech'), __('portfolio.proj3_desc'), __('portfolio.proj3_link'), __('portfolio.proj3_url'), __('portfolio.proj3_img')], [__('portfolio.proj4_name'), __('portfolio.proj4_tech'), __('portfolio.proj4_desc'), __('portfolio.proj4_link'), '#', null]] as [$name, $tech, $desc, $link, $url, $img])
+                                        @foreach ([[__('portfolio.proj1_name'), __('portfolio.proj1_tech'), __('portfolio.proj1_desc'), __('portfolio.proj1_link'), __('portfolio.proj1_url'), __('portfolio.proj1_img')], [__('portfolio.proj3_name'), __('portfolio.proj3_tech'), __('portfolio.proj3_desc'), __('portfolio.proj3_link'), __('portfolio.proj3_url'), __('portfolio.proj3_img')], [__('portfolio.proj4_name'), __('portfolio.proj4_tech'), __('portfolio.proj4_desc'), __('portfolio.proj4_link'), route('expenses.index'), null]] as [$name, $tech, $desc, $link, $url, $img])
                                             <div class="project-card">
                                                 <div class="font-pixel text-sm-base text-accent">> {{ $name }}
                                                 </div>
