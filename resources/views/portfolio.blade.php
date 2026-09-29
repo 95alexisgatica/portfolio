@@ -386,17 +386,6 @@
                 <x-sections.contact />
 
                 <script>
-                    function toggleLangMenu() {
-                        const menu = document.getElementById('lang-menu');
-                        menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
-                    }
-
-                    document.addEventListener('click', function(e) {
-                        if (!document.getElementById('lang-dropdown').contains(e.target)) {
-                            document.getElementById('lang-menu').style.display = 'none';
-                        }
-                    });
-
                     switchTab('data');
 
                     function toggleSkillGroup(btn) {
