@@ -35,6 +35,7 @@
                         @csrf
                         <button type="submit" class="expense-back-link expense-text-button">{{ __('portfolio.expenses_logout') }}</button>
                     </form>
+                    <x-lang-switcher />
                     <a href="{{ url('/') }}" class="expense-back-link">{{ __('portfolio.expenses_back') }}</a>
                 </div>
             </div>

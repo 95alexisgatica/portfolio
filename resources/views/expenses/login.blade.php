@@ -14,7 +14,10 @@
         <div class="expense-window expense-auth-window">
             <div class="panel-header">
                 <span>> {{ __('portfolio.expenses_title') }}</span>
-                <a href="{{ url('/') }}" class="expense-back-link">{{ __('portfolio.expenses_back') }}</a>
+                <div class="expense-header-actions">
+                    <x-lang-switcher />
+                    <a href="{{ url('/') }}" class="expense-back-link">{{ __('portfolio.expenses_back') }}</a>
+                </div>
             </div>
             <div class="expense-content expense-auth-content">
                 <h1>{{ __('portfolio.expenses_heading') }}</h1>
