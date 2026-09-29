@@ -78,10 +78,6 @@ class GoogleAuthController extends Controller
             }
 
             $user->save();
-
-            if ($user->categories()->doesntExist()) {
-                $user->seedDefaultCategories();
-            }
         }
 
         Auth::login($user, true);

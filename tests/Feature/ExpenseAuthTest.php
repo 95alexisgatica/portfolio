@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Comment;
 use App\Models\Expense;
+use App\Models\ExpenseCategory;
 use App\Models\User;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -129,6 +130,31 @@ class ExpenseAuthTest extends TestCase
                 'amount' => 0,
             ])
             ->assertUnprocessable();
+    }
+
+    public function test_deleting_a_category_nulls_matching_expenses_without_deleting_them(): void
+    {
+        $user = User::factory()->create();
+        $category = ExpenseCategory::query()->create([
+            'user_id' => $user->id,
+            'name' => '🍽️ Alimentación',
+            'color' => '#d94f4f',
+        ]);
+        $expense = Expense::query()->create([
+            'user_id' => $user->id,
+            'date' => '2026-09-12',
+            'category' => $category->name,
+            'detail' => 'Groceries',
+            'payment_type' => 'cash',
+            'amount' => 100,
+        ]);
+
+        $this->actingAs($user)
+            ->deleteJson(route('expenses.category.destroy', $category))
+            ->assertOk();
+
+        $this->assertDatabaseMissing('expense_categories', ['id' => $category->id]);
+        $this->assertDatabaseHas('expenses', ['id' => $expense->id, 'category' => null]);
     }
 
     public function test_user_cannot_see_another_users_extra_income(): void

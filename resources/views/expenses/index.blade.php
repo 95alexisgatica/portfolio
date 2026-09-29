@@ -505,7 +505,6 @@
             @json(__('portfolio.expenses_payment_cash')),
             @json(__('portfolio.expenses_payment_transfer')),
         ];
-        const categoryStorageKey = 'portfolio-expense-categories';
         const chartColorStorageKey = 'portfolio-expense-chart-colors';
         const expenseStorageKey = 'portfolio-expenses';
         const incomeStorageKey = 'portfolio-expense-income';
@@ -519,33 +518,17 @@
         let fixedOccurrences = {};
         selectedYearInput.value = selectedYear;
 
-        const defaultCategories = [
-            @json(__('portfolio.expenses_example_category_food')),
-            @json(__('portfolio.expenses_example_category_transport')),
-            @json('🏠 ' . __('portfolio.expenses_category_home')),
-            @json('💊 ' . __('portfolio.expenses_category_health')),
-        ];
-        let savedCategories = [];
-        try {
-            savedCategories = JSON.parse(localStorage.getItem(categoryStorageKey) || '[]');
-        } catch (error) {
-            localStorage.removeItem(categoryStorageKey);
-        }
-        const categories = [...new Set([...defaultCategories, ...savedCategories])];
-        const defaultExpenses = [
-            { id: crypto.randomUUID(), date: '2026-08-01', category: @json(__('portfolio.expenses_example_category_food')), detail: @json(__('portfolio.expenses_example_detail_food')), paymentType: @json(__('portfolio.expenses_payment_card')), amount: 12500, notes: @json(__('portfolio.expenses_example_notes_food')) },
-            { id: crypto.randomUUID(), date: '2026-08-03', category: @json(__('portfolio.expenses_example_category_transport')), detail: @json(__('portfolio.expenses_example_detail_transport')), paymentType: @json(__('portfolio.expenses_payment_cash')), amount: 3200, notes: @json(__('portfolio.expenses_example_notes_transport')) },
-        ];
+        const categories = [];
         let expenses = [];
         let incomes = {};
         let extraIncomes = [];
         try {
-            expenses = JSON.parse(localStorage.getItem(expenseStorageKey) || 'null') || defaultExpenses;
+            expenses = JSON.parse(localStorage.getItem(expenseStorageKey) || '[]');
             incomes = JSON.parse(localStorage.getItem(incomeStorageKey) || '{}');
         } catch (error) {
             localStorage.removeItem(expenseStorageKey);
             localStorage.removeItem(incomeStorageKey);
-            expenses = defaultExpenses;
+            expenses = [];
         }
         if (incomes['2026-08'] === undefined && expenses.some((expense) => expense.date.startsWith('2026-08'))) {
             incomes['2026-08'] = 50000;
@@ -626,26 +609,6 @@
                     if (!categories.includes(category.name)) categories.push(category.name);
                     chartColors[category.name] = category.color;
                 });
-                if (!data.categories.length) {
-                    for (const category of defaultCategories) {
-                        const savedCategory = await apiRequest('{{ route('expenses.category') }}', {
-                            method: 'POST',
-                            body: JSON.stringify({ name: category }),
-                        });
-                        categoryRecords[category] = savedCategory;
-                        chartColors[category] = savedCategory.color;
-                    }
-                }
-                if (!data.categories.length) {
-                    for (const category of categories.filter((item) => !defaultCategories.includes(item))) {
-                        const savedCategory = await apiRequest('{{ route('expenses.category') }}', {
-                            method: 'POST',
-                            body: JSON.stringify({ name: category, color: chartColors[category] }),
-                        });
-                        categoryRecords[category] = savedCategory;
-                        chartColors[category] = savedCategory.color;
-                    }
-                }
                 renderPeriod();
             } catch (error) {
                 console.error('Could not load expenses from the database.', error);
@@ -1448,7 +1411,8 @@
                 name.textContent = category;
                 const actions = document.createElement('div');
                 actions.className = 'category-manager-actions';
-                if (categoryRecords[category]) {
+                const record = categoryRecords[category];
+                if (record) {
                     const editButton = document.createElement('button');
                     editButton.type = 'button';
                     editButton.className = 'expense-edit-category';
@@ -1460,10 +1424,6 @@
                     deleteButton.textContent = deleteCategoryLabel;
                     deleteButton.addEventListener('click', () => deleteCategory(category));
                     actions.append(editButton, deleteButton);
-                } else {
-                    const protectedLabel = document.createElement('small');
-                    protectedLabel.textContent = @json(__('portfolio.expenses_category_protected'));
-                    actions.appendChild(protectedLabel);
                 }
                 item.append(name, actions);
                 categoryManagerList.appendChild(item);

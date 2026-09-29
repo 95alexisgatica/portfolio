@@ -17,10 +17,6 @@ class ProfileController extends Controller
         $user = $request->user();
         $user->update(['nickname' => trim($data['nickname'])]);
 
-        if ($user->categories()->doesntExist()) {
-            $user->seedDefaultCategories();
-        }
-
         return redirect()->route('expenses.index');
     }
 
