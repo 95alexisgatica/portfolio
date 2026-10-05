@@ -32,7 +32,7 @@ class ExpensesController extends Controller
             'categories' => ExpenseCategory::query()->where('user_id', $userId)->orderBy('name')->get(['id', 'name', 'color']),
             'inspirations' => MonthlyInspiration::query()->where('user_id', $userId)->get()->mapWithKeys(
                 fn (MonthlyInspiration $inspiration) => [sprintf('%d-%02d', $inspiration->year, $inspiration->month) => [
-                    'url' => $inspiration->image_url ?: asset('storage/'.$inspiration->path),
+                    'url' => $inspiration->imageUrl(),
                     'original_name' => $inspiration->original_name,
                 ]]
             ),
@@ -164,7 +164,7 @@ class ExpensesController extends Controller
         );
 
         return response()->json([
-            'url' => $inspiration->image_url ?: asset('storage/'.$inspiration->path),
+            'url' => $inspiration->imageUrl(),
             'original_name' => $inspiration->original_name,
         ]);
     }

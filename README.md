@@ -56,3 +56,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Production uploads
+
+Profile avatars and monthly inspiration uploads use Laravel's `public` disk. Before serving the application in production:
+
+1. Set `APP_URL` to the canonical HTTPS application URL in the server environment. Do not commit `.env` or credentials.
+2. From the application root, run `php artisan storage:link` after the first deploy (and after recreating the `public` directory).
+3. Clear cached configuration after changing `APP_URL` with `php artisan config:clear` or `php artisan config:cache`.
+
+The local `deploy.sh` uploads the frontend build and invokes the server deploy script, but it cannot safely manage the server's environment or application path. Verify the storage link and cached `APP_URL` as a manual post-deploy step.

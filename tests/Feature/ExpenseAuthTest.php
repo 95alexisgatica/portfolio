@@ -5,9 +5,12 @@ namespace Tests\Feature;
 use App\Models\Comment;
 use App\Models\Expense;
 use App\Models\ExpenseCategory;
+use App\Models\MonthlyInspiration;
 use App\Models\User;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class ExpenseAuthTest extends TestCase
@@ -130,6 +133,63 @@ class ExpenseAuthTest extends TestCase
                 'amount' => 0,
             ])
             ->assertUnprocessable();
+    }
+
+    public function test_uploaded_avatar_url_uses_the_public_disk_url_in_production(): void
+    {
+        config([
+            'app.url' => 'https://alexisgatica.dev',
+            'filesystems.disks.public.url' => 'https://alexisgatica.dev/storage',
+        ]);
+        Storage::fake('public', ['url' => 'https://alexisgatica.dev/storage']);
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->post(route('expenses.avatar.update'), [
+                'avatar' => UploadedFile::fake()->image('avatar.png'),
+            ])
+            ->assertRedirect(route('expenses.index'));
+
+        $user->refresh();
+
+        Storage::disk('public')->assertExists($user->avatar_path);
+        $this->assertStringStartsWith('https://alexisgatica.dev/storage/', $user->avatarUrl());
+        $this->assertStringEndsWith($user->avatar_path, $user->avatarUrl());
+    }
+
+    public function test_uploaded_monthly_inspiration_url_uses_the_public_disk_url_in_production(): void
+    {
+        config([
+            'app.url' => 'https://alexisgatica.dev',
+            'filesystems.disks.public.url' => 'https://alexisgatica.dev/storage',
+        ]);
+        Storage::fake('public', ['url' => 'https://alexisgatica.dev/storage']);
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->postJson(route('expenses.inspiration.store'), [
+            'year' => 2026,
+            'month' => 9,
+            'image' => UploadedFile::fake()->image('inspiration.jpg'),
+        ]);
+
+        $inspiration = MonthlyInspiration::query()->where('user_id', $user->id)->firstOrFail();
+        Storage::disk('public')->assertExists($inspiration->path);
+        $response->assertOk()->assertJsonPath('url', $inspiration->imageUrl());
+    }
+
+    public function test_external_monthly_inspiration_url_is_returned_unchanged(): void
+    {
+        $user = User::factory()->create();
+        $externalUrl = 'https://images.example.test/inspiration.jpg';
+
+        $this->actingAs($user)
+            ->postJson(route('expenses.inspiration.store'), [
+                'year' => 2026,
+                'month' => 9,
+                'url' => $externalUrl,
+            ])
+            ->assertOk()
+            ->assertJsonPath('url', $externalUrl);
     }
 
     public function test_deleting_a_category_nulls_matching_expenses_without_deleting_them(): void
